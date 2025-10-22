@@ -15,6 +15,9 @@
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .form input {
@@ -27,13 +30,16 @@
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: #d67a2e;
   width: 100%;
   border: 0;
   padding: 15px;
@@ -42,10 +48,13 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 .form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+  background: rgb(255, 255, 255);
 }
 
 .form .message {
@@ -54,16 +63,16 @@
   font-size: 12px;
 }
 
-.form .message a {
-  color: #4CAF50;
+/* .form .message a {
+  color: #aa6e07;
   text-decoration: none;
 }
 
 .form .register-form {
   display: none;
-}
+} */
 
-.container {
+/* .container {
   position: relative;
   z-index: 1;
   max-width: 300px;
@@ -101,13 +110,111 @@
 
 .container .info span .fa {
   color: #EF3B3A;
-}
+} */
 
-body {
-  background: #76b852; /* fallback for old browsers */
+login-body {
+  background: #76b852;
   background: rgb(141,194,111);
   background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
+}
+
+/* ----------------------------------------------------------------------------------------------------------- */
+
+/* ✅ Set base font and page background */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f8f9fa;
+  margin: 0;
+}
+
+/* ✅ Added new header bar styling to match target design */
+.faculty-header {
+  background-color: #d67a2e; /* Orange banner color */
+  color: white;
+  position: fixed; /* Keeps it visible at top of every page */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Keeps it above all content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ✅ Font style for "faculty HUB" logo */
+.faculty-logo {
+  font-family: "Georgia", cursive;
+  font-size: 1.8rem;
+}
+
+/* ✅ Style for the buttons inside the header */
+.faculty-header .btn {
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.faculty-header .btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* ✅ Profile image style (round with white border) */
+.profile-pic {
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+/* ✅ Add padding so content doesn’t hide behind fixed header */
+main {
+  padding-top: 140px;
+}
+
+/* ✅ Welcome heading styling */
+.welcome {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ✅ Floating logout button in bottom-right corner */
+.logout-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+/* ✅ Post box design */
+.post {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+/* ✅ Textarea input style for new post area */
+textarea.form-control {
+  border-radius: 8px;
+  resize: none;
+}
+
+/* ✅ Remove default link styling from the logo link */
+.logo-link {
+  text-decoration: none;   /* removes underline */
+  color: inherit;          /* keeps the logo text color */
+}
+
+/* ✅ Optional: prevent color change on hover */
+.logo-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ✅ Make profile image behave like a clickable button */
+.logout-icon {
+  cursor: pointer;         /* shows hand cursor on hover */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ✅ Optional hover effect */
+.logout-icon:hover {
+  transform: scale(1.05);  /* slightly enlarges */
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
