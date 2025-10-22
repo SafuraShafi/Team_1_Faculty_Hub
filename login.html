@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<login-body>
   <div class="login-page">
     <div class="form">
       <form class="login-form" onsubmit="handleLogin(event)">
@@ -31,15 +31,11 @@
 
   <script>
     function handleLogin(event) {
-        event.preventDefault(); // stop form from refreshing the page
-        
-        // Save login state
+        event.preventDefault(); // stop form from refreshing the page        
         localStorage.setItem("isLoggedIn", "true");
-
-        // Redirect to home
         window.location.href = "index.html";
     }
   </script>
 
-</body>
+</login-body>
 </html>
