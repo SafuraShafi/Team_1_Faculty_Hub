@@ -63,6 +63,74 @@
   font-size: 12px;
 }
 
+/* Make subheading fully white and centered */
+.welcome-subheading {
+  color: white;           /* Fully white */
+  font-weight: 600;       /* Semi-bold */
+  text-align: left;     /* Centered */
+  margin-bottom: 30px;    /* Add spacing below */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  /* Optional subtle shadow */
+  -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
+  text-stroke: 1px white;
+}
+
+
+/* Faculty Posts heading bold, white, and centered */
+.faculty-post-section h4 {
+  font-weight: 1000;       /* Bold */
+  color: white;           /* White text */
+  font-size: 2rem;      /* Slightly larger */
+  text-align: center;     /* Center the text */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+  -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
+  text-stroke: 1px white;
+}
+
+
+/* Full top background image section */
+.top-bg-section {
+  background-image: url("/UTDbg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+}
+
+/* Optional dark overlay for readability */
+.top-bg-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 60px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* White text on top of image */
+.top-bg-section h2,
+.top-bg-section h5,
+.top-bg-section h4 {
+  color: white;
+}
+
+/* Keep the white boxes readable on top of the background */
+.top-bg-section .form-group,
+.top-bg-section .post {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.faculty-post-bg .form-group,
+.faculty-post-bg .post {
+  background-color: white;         /* Keeps boxes white on top of image */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* .form .message a {
   color: #aa6e07;
   text-decoration: none;
