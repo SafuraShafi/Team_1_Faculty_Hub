@@ -71,7 +71,8 @@
   margin-bottom: 30px;    /* Add spacing below */
   text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  /* Optional subtle shadow */
   -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
-  text-stroke: 1px white;
+  -webkit-text-stroke: 1px white;
+
 }
 
 
@@ -84,7 +85,7 @@
   margin-bottom: 20px;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
   -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
-  text-stroke: 1px white;
+  -webkit-text-stroke: 1px white;
 }
 
 
@@ -369,4 +370,90 @@ textarea.form-control {
 
 @media (prefers-reduced-motion: reduce) {
   .action-link { transition: none; }
+}
+
+
+/* Grading Page Styling */
+
+.grading-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.grading-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+}
+
+.back-link {
+  color: #6b6b6b;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #444;
+}
+
+/* Table card container */
+.course-card {
+  max-width: 720px;
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.course-card .card-inner {
+  padding: 10px 14px;
+}
+
+/* Table styling */
+.grading-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 15px;
+}
+
+.grading-table thead th {
+  text-align: left;
+  font-weight: 600;
+  background: #fafafa;
+  padding: 14px 18px;
+  border-bottom: 1px solid #ececec;
+}
+
+.grading-table tbody td {
+  padding: 14px 18px;
+  border-top: 1px solid #ececec;
+}
+
+.grading-table tbody tr:first-child td {
+  border-top: none;
+}
+
+/* “Next” button styling */
+.next-btn {
+  background: #d67a2e;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 0;
+  width: 120px;
+  font-weight: 500;
+  font-size: 15px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.next-btn:hover {
+  background: #bf6b26;
+  transform: translateY(-1px);
 }
