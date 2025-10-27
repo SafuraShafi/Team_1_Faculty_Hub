@@ -6,10 +6,8 @@
   <title>Grading</title>
 
   <!-- Bootstrap CSS -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
-  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -33,25 +31,20 @@
         <a href="#" class="btn btn-light">Messages</a>
         <a href="schedule.html" class="btn btn-light">Schedule</a>
         <a href="grading.html" class="btn btn-light">Grading</a>
-        <!-- <img src="profile.png" alt="Profile" class="profile-pic rounded-circle" width="40" height="40"> -->
         <img src="profile.png" alt="Profile" class="profile-pic rounded-circle logout-icon" width="40" height="40" onclick="logout()" title="Logout">
       </div>
     </div>
   </header>
 
-  <main class="mt-5 pt-5">
-    <section class="grading-wrap container">
-      <div class="d-flex justify-content-between align-items-end mb-3">
-        <div>
-          <h2 class="grading-title mb-0">Grading</h2>
-          <small class="text-muted">Your current courses</small>
-        </div>
-        <a href="index.html" class="back-link">Back to Dashboard</a>
-      </div>
-  
-      <div class="course-card">
-        <table class="table mb-0 text-center align-middle">
-          <thead>
+  <main class="container mt-5 pt-5">
+    <!-- ✅ PAGE 1: Course list -->
+    <section id="grading-page1">
+      <h2 class="fw-bold">Grading</h2>
+      <p class="text-muted">Your current courses</p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead class="table-light">
             <tr>
               <th>Semester</th>
               <th>Course Name</th>
@@ -78,30 +71,205 @@
           </tbody>
         </table>
       </div>
-  
+
       <div class="text-center mt-4">
-        <a href="#" class="btn next-btn" id="grade-next-1">Next</a>
+        <button id="nextBtn" class="btn btn-primary px-4">Next</button>
+      </div>
+    </section>
+
+    <!-- ✅ PAGE 2: Assignment list (click rows or Next to go to Page 3) -->
+    <section id="grading-page2" style="display:none;">
+      <h2 class="fw-bold">Grading</h2>
+      <p class="text-muted">Market Research – MKT 3340.501</p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Assignment</th>
+              <th>Type</th>
+              <th>Weight</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 1">Assignment 1</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>8/21/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Quiz 1">Quiz 1</a></td>
+              <td>Quiz</td>
+              <td>10%</td>
+              <td>9/05/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 2">Assignment 2</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>9/25/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 3">Assignment 3</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>10/03/2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage1" class="btn btn-secondary px-4">Go Back</button>
+        <button id="toPage3" class="btn btn-primary px-4 ms-2">Next</button>
+      </div>
+    </section>
+
+    <!-- ✅ PAGE 3: Students + Edit squares -->
+    <section id="grading-page3" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
+          <small class="text-muted">Grade your students' assignments!</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Submission Date</th>
+                <th style="width:80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Sarah</td>
+                <td>Hasan</td>
+                <td>100%</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+              </tr>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Safura</td>
+                <td>Shafi</td>
+                <td>—</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+              </tr>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Munise</td>
+                <td>Oz</td>
+                <td>100%</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+              </tr>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Sarah</td>
+                <td>Hasan</td>
+                <td>100%</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage2" class="btn btn-secondary px-4">Go Back</button>
+      </div>
+    </section>
+
+    <!-- ✅ PAGE 4: Placeholder (arrives after Edit confirm) -->
+    <section id="grading-page4" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block">Edit Assignment</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="alert alert-info">You clicked “Edit”. We’ll build this editor next.</div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage3" class="btn btn-secondary px-4">Go Back</button>
       </div>
     </section>
   </main>
-  
 
+  <!-- Logic -->
   <script>
     function logout() {
       localStorage.removeItem("isLoggedIn");
       window.location.href = "Login.html";
     }
-  
-    // go to step 2
-    document.getElementById("grade-next-1")?.addEventListener("click", (e) => {
-      e.preventDefault();
-      window.location.href = "grading_step2.html";
-    });
+
+    // show only one section at a time
+    function showSection(id){
+      const ids = ["grading-page1","grading-page2","grading-page3","grading-page4"];
+      ids.forEach(s => {
+        const el = document.getElementById(s);
+        if (el) el.style.display = (s === id) ? "block" : "none";
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // PAGE 1 → PAGE 2
+    document.getElementById("nextBtn")?.addEventListener("click", () => showSection("grading-page2"));
+
+    // PAGE 2 buttons
+    document.getElementById("backToPage1")?.addEventListener("click", () => showSection("grading-page1"));
+    document.getElementById("toPage3")?.addEventListener("click", () => showSection("grading-page3"));
+
+    // PAGE 3 back
+    document.getElementById("backToPage2")?.addEventListener("click", () => showSection("grading-page2"));
+
+    // PAGE 4 back
+    document.getElementById("backToPage3")?.addEventListener("click", () => showSection("grading-page3"));
+
+    // Make all assignment names on PAGE 2 clickable → PAGE 3
+    function wireAssignmentLinks(){
+      document.querySelectorAll('#grading-page2 .assignment-link').forEach(a=>{
+        a.addEventListener('click', (e)=>{
+          e.preventDefault();
+          // could store a.dataset.assignment if you want to personalize page 3
+          showSection('grading-page3');
+        });
+      });
+    }
+
+    // Confirm on Edit squares (PAGE 3) → PAGE 4
+    function wireEditSquares(){
+      document.querySelectorAll(".edit-square").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const aName = btn.getAttribute("data-assignment") || "this assignment";
+          const ok = confirm(`Do you want to edit ${aName}?`);
+          if (ok) showSection("grading-page4");
+        });
+      });
+    }
+
+    // wire interactions on load
+    wireAssignmentLinks();
+    wireEditSquares();
   </script>
-  
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
