@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap');
 
 .login-page {
   width: 360px;
@@ -193,10 +193,28 @@ login-body {
 
 /* ✅ Set base font and page background */
 body {
-  font-family: 'Roboto', sans-serif;
-  background: #f8f9fa;
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Poppins', Arial, sans-serif;
+  /* soft warm gradient background instead of plain white */
+  background: linear-gradient(180deg, #f7f8f9 0%, #f3f5f7 40%, #ffffff 100%);
+  color: #222326;
   margin: 0;
+  -webkit-font-smoothing:antialiased;
 }
+
+/* Headings and typography */
+h1, h2, h3, h4 {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+  color: #171717;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+h5, .card-title { font-weight: 600; color: #333; }
 
 /* ✅ Added new header bar styling to match target design */
 .faculty-header {
@@ -212,9 +230,14 @@ body {
 
 /* ✅ Font style for "faculty HUB" logo */
 .faculty-logo {
-  font-family: "Georgia", cursive;
-  font-size: 1.8rem;
+  font-family: 'Poppins', 'Georgia', serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
 }
+
+/* small header logo image */
+.header-logo{ width:44px; height:44px; object-fit:cover; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.12);} 
 
 /* ✅ Style for the buttons inside the header */
 .faculty-header .btn {
@@ -237,6 +260,39 @@ body {
 main {
   padding-top: 140px;
 }
+
+/* subtle page watermark (non-interactive) */
+.page-watermark{
+  position:absolute; left:50%; top:220px; transform:translateX(-50%);
+  width:520px; height:340px; background-image: url('../aerialView.png');
+  background-size: cover; background-position:center; opacity:0.04; pointer-events:none; z-index:0; border-radius:8px;
+}
+
+/* Make cards and panels sit above watermark */
+.container-fluid, .card, .panel-box { position: relative; z-index: 1; }
+
+/* slightly translucent cards */
+.card, .panel-box { background: linear-gradient(180deg,#ffffffcc,#fbfbfbcc); }
+
+/* Global button polish */
+.btn-wizard, .btn {
+  border-radius: 10px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.06);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+}
+.btn-wizard:hover, .btn:hover { transform: translateY(-2px); }
+
+/* Primary action */
+.btn-primary, .btn-wizard { background: #d67a2e; color: #fff; border: none; }
+.btn-secondary { background: #f2f2f2; color: #222; border: none; }
+
+/* Tables inside schedule: rounded container */
+.schedule-card {
+  border-radius: 14px; padding: 18px; border: 1px solid rgba(30,30,30,0.06); background: #fff; box-shadow: 0 6px 18px rgba(20,20,20,0.03);
+}
+
+/* smaller muted helper text */
+.text-muted.small { color: #6c757d; font-size: 0.95rem; }
 
 /* ✅ Welcome heading styling */
 .welcome {
@@ -285,4 +341,32 @@ textarea.form-control {
 .logout-icon:hover {
   transform: scale(1.05);  /* slightly enlarges */
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Action-style links used for small header controls and quick actions */
+.action-link {
+  color: #0d6efd; /* Bootstrap blue */
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background .12s ease, color .12s ease, transform .12s ease;
+}
+.action-link:hover {
+  background: rgba(13,110,253,0.08);
+  color: #0b5ed7;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+/* Make the main "View Faculty Schedules" look slightly more button-like */
+#viewSchedulesLink.action-link {
+  border: 1px solid rgba(13,110,253,0.12);
+  background: linear-gradient(180deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
+  color: #0b5ed7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-link { transition: none; }
 }
