@@ -39,9 +39,52 @@
     </div>
   </header>
 
-  <main class="container mt-5 pt-5">
-    <p>THIS IS THE GRADING PAGE</p>
+  <main class="mt-5 pt-5">
+    <section class="grading-wrap container">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-0">Grading</h2>
+          <small class="text-muted">Your current courses</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+  
+      <div class="course-card">
+        <table class="table mb-0 text-center align-middle">
+          <thead>
+            <tr>
+              <th>Semester</th>
+              <th>Course Name</th>
+              <th>Course #</th>
+              <th>Seat Capacity</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>FA2025</td>
+              <td>Market Research</td>
+              <td>MKT 3340</td>
+              <td>25</td>
+              <td>MW 2:00–3:15 PM</td>
+            </tr>
+            <tr>
+              <td>FA2025</td>
+              <td>Market Research</td>
+              <td>MKT 3340</td>
+              <td>25</td>
+              <td>F 2:00–3:15 PM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="text-center mt-4">
+        <a href="#" class="btn next-btn" id="grade-next-1">Next</a>
+      </div>
+    </section>
   </main>
+  
 
   <script>
     function logout() {
