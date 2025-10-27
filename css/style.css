@@ -457,3 +457,25 @@ textarea.form-control {
   background: #bf6b26;
   transform: translateY(-1px);
 }
+
+/* square Edit button */
+.edit-square{
+  width: 44px;
+  height: 44px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .15s ease, transform .12s ease, box-shadow .12s ease;
+}
+.edit-square:hover{
+  background:#f4f4f4;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+}
