@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schedule Requests</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="faculty-header">
+    <div class="d-flex justify-content-between align-items-center p-3 px-4">
+      <div class="d-flex gap-2">
+        <a href="about.html" class="btn btn-light">About Us</a>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <a href="index.html" class="logo-link">
+          <h1 class="faculty-logo mb-0">faculty <span class="fw-bold">HUB</span></h1>
+        </a>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="schedule.html" class="btn btn-light">Schedule</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mt-5">
+    <h2>Schedule Requests</h2>
+    <p class="text-muted">All saved schedule requests (from this browser)</p>
+    <div id="requestsList" class="mt-4"></div>
+    <div class="mt-4"><a href="schedule.html" class="btn btn-secondary">Back to Schedule</a></div>
+  </main>
+
+  <script>
+    function render() {
+      const list = JSON.parse(localStorage.getItem('scheduleRequests') || '[]');
+      const container = document.getElementById('requestsList');
+      if (!container) return;
+      if (!list.length) { container.innerHTML = '<div class="alert alert-info">No schedule requests found.</div>'; return; }
+      let html = '<div class="list-group">';
+      list.forEach((r, i) => {
+        html += `<div class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Request ${i+1} — ${r.type || ''}</h5>
+            <small>${new Date(r.ts).toLocaleString()}</small>
+          </div>
+          <p class="mb-1"><strong>Course:</strong> ${r.course || '-'} &nbsp; <strong>Room:</strong> ${r.room || '-'} &nbsp; <strong>Times:</strong> ${r.times ? (Array.isArray(r.times)? r.times.join(', '): r.times) : '-'}</p>
+          <p class="mb-0"><strong>Quick:</strong> ${r.text || r.quickRequest || '-'}</p>
+        </div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+    render();
+  </script>
+</body>
+</html>
