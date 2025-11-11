@@ -63,33 +63,30 @@
   font-size: 12px;
 }
 
-/* Make subheading fully white and centered */
 .welcome-subheading {
-  color: white;           /* Fully white */
-  font-weight: 600;       /* Semi-bold */
-  text-align: left;     /* Centered */
-  margin-bottom: 30px;    /* Add spacing below */
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  /* Optional subtle shadow */
-  -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
+  color: white;        
+  font-weight: 600;     
+  text-align: left;   
+  margin-bottom: 30px;   
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.7); 
+  -webkit-text-stroke: 1px white; 
   -webkit-text-stroke: 1px white;
 
 }
 
 
-/* Faculty Posts heading bold, white, and centered */
 .faculty-post-section h4 {
-  font-weight: 1000;       /* Bold */
-  color: white;           /* White text */
-  font-size: 2rem;      /* Slightly larger */
-  text-align: center;     /* Center the text */
+  font-weight: 1000;     
+  color: white;     
+  font-size: 2rem; 
+  text-align: center; 
   margin-bottom: 20px;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
-  -webkit-text-stroke: 1px white; /* adds a thin black outline for extra thickness */
+  -webkit-text-stroke: 1px white; 
   -webkit-text-stroke: 1px white;
 }
 
 
-/* Full top background image section */
 .top-bg-section {
   background-image: url("/UTDbg.jpg");
   background-size: cover;
@@ -97,12 +94,10 @@
   background-repeat: no-repeat;
   width: 100vw;
   height: 100vh;
-  /* margin-left: calc(-50vw + 50%); */
   position: relative;
   overflow: hidden;
 }
 
-/* Optional dark overlay for readability */
 .top-bg-overlay {
   background: rgba(0, 0, 0, 0.5);
   padding: 60px 0;
@@ -110,14 +105,12 @@
   z-index: 1;
 }
 
-/* White text on top of image */
 .top-bg-section h2,
 .top-bg-section h5,
 .top-bg-section h4 {
   color: white;
 }
 
-/* Keep the white boxes readable on top of the background */
 .top-bg-section .form-group,
 .top-bg-section .post {
   background-color: white;
@@ -128,60 +121,11 @@
 
 .faculty-post-bg .form-group,
 .faculty-post-bg .post {
-  background-color: white;         /* Keeps boxes white on top of image */
+  background-color: white;        
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
-/* .form .message a {
-  color: #aa6e07;
-  text-decoration: none;
-}
-
-.form .register-form {
-  display: none;
-} */
-
-/* .container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.container:before, .container:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.container .info {
-  margin: 50px auto;
-  text-align: center;
-}
-
-.container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
-}
-
-.container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
-}
-
-.container .info span a {
-  color: #000000;
-  text-decoration: none;
-}
-
-.container .info span .fa {
-  color: #EF3B3A;
-} */
 
 login-body {
   background: #76b852;
@@ -192,19 +136,15 @@ login-body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
-/* ----------------------------------------------------------------------------------------------------------- */
 
-/* ✅ Set base font and page background */
 body {
   font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', 'Poppins', Arial, sans-serif;
-  /* soft warm gradient background instead of plain white */
   background: linear-gradient(180deg, #f7f8f9 0%, #f3f5f7 40%, #ffffff 100%);
   color: #222326;
   margin: 0;
   -webkit-font-smoothing:antialiased;
 }
 
-/* Headings and typography */
 h1, h2, h3, h4 {
   font-family: 'Poppins', 'Roboto', sans-serif;
   color: #171717;
@@ -219,19 +159,17 @@ h2 {
 
 h5, .card-title { font-weight: 600; color: #333; }
 
-/* ✅ Added new header bar styling to match target design */
 .faculty-header {
-  background-color: #d67a2e; /* Orange banner color */
+  background-color: #d67a2e;
   color: white;
-  position: fixed; /* Keeps it visible at top of every page */
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Keeps it above all content */
+  z-index: 1000; 
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* ✅ Font style for "faculty HUB" logo */
 .faculty-logo {
   font-family: 'Poppins', 'Georgia', serif;
   font-size: 2.1rem;
@@ -239,10 +177,14 @@ h5, .card-title { font-weight: 600; color: #333; }
   letter-spacing: 0.6px;
 }
 
-/* small header logo image */
-.header-logo{ width:44px; height:44px; object-fit:cover; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.12);} 
+.header-logo{ 
+  width:44px; 
+  height:44px; 
+  object-fit:cover; 
+  border-radius:8px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+} 
 
-/* ✅ Style for the buttons inside the header */
 .faculty-header .btn {
   border: none;
   border-radius: 8px;
@@ -253,102 +195,103 @@ h5, .card-title { font-weight: 600; color: #333; }
   background-color: #f0f0f0;
 }
 
-/* ✅ Profile image style (round with white border) */
 .profile-pic {
   object-fit: cover;
   border: 2px solid white;
 }
 
-/* ✅ Add padding so content doesn’t hide behind fixed header */
 main {
   padding-top: 140px;
 }
 
-/* subtle page watermark (non-interactive) */
 .page-watermark{
-  position:absolute; left:50%; top:220px; transform:translateX(-50%);
-  width:520px; height:340px; background-image: url('../aerialView.png');
-  background-size: cover; background-position:center; opacity:0.04; pointer-events:none; z-index:0; border-radius:8px;
+  position:absolute; 
+  left:50%; 
+  top:220px; 
+  transform:translateX(-50%);
+  width:520px; 
+  height:340px; 
+  background-image: url('../aerialView.png');
+  background-size: cover; 
+  background-position:center; 
+  opacity:0.04; 
+  pointer-events:none; 
+  z-index:0; 
+  border-radius:8px;
 }
 
-/* Make cards and panels sit above watermark */
 .container-fluid, .card, .panel-box { position: relative; z-index: 1; }
 
-/* slightly translucent cards */
 .card, .panel-box { background: linear-gradient(180deg,#ffffffcc,#fbfbfbcc); }
 
-/* Global button polish */
 .btn-wizard, .btn {
   border-radius: 10px;
   box-shadow: 0 6px 0 rgba(0,0,0,0.06);
   transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
 }
+
 .btn-wizard:hover, .btn:hover { transform: translateY(-2px); }
 
-/* Primary action */
 .btn-primary, .btn-wizard { background: #d67a2e; color: #fff; border: none; }
+
 .btn-secondary { background: #f2f2f2; color: #222; border: none; }
 
-/* Tables inside schedule: rounded container */
 .schedule-card {
-  border-radius: 14px; padding: 18px; border: 1px solid rgba(30,30,30,0.06); background: #fff; box-shadow: 0 6px 18px rgba(20,20,20,0.03);
+  border-radius: 14px; 
+  padding: 18px; 
+  border: 1px solid rgba(30,30,30,0.06); 
+  background: #fff; 
+  box-shadow: 0 6px 18px rgba(20,20,20,0.03);
 }
 
-/* smaller muted helper text */
-.text-muted.small { color: #6c757d; font-size: 0.95rem; }
+.text-muted.small { 
+  color: #6c757d; 
+  font-size: 0.95rem; 
+}
 
-/* ✅ Welcome heading styling */
 .welcome {
   font-weight: 600;
   color: #333;
 }
 
-/* ✅ Floating logout button in bottom-right corner */
 .logout-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
-/* ✅ Post box design */
 .post {
   border: 1px solid #ddd;
   border-radius: 10px;
 }
 
-/* ✅ Textarea input style for new post area */
 textarea.form-control {
   border-radius: 8px;
   resize: none;
 }
 
-/* ✅ Remove default link styling from the logo link */
 .logo-link {
-  text-decoration: none;   /* removes underline */
-  color: inherit;          /* keeps the logo text color */
+  text-decoration: none;  
+  color: inherit;        
 }
 
-/* ✅ Optional: prevent color change on hover */
 .logo-link:hover {
   text-decoration: none;
   color: inherit;
 }
 
-/* ✅ Make profile image behave like a clickable button */
 .logout-icon {
-  cursor: pointer;         /* shows hand cursor on hover */
+  cursor: pointer;   
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ✅ Optional hover effect */
 .logout-icon:hover {
-  transform: scale(1.05);  /* slightly enlarges */
+  transform: scale(1.05);
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 
-/* Action-style links used for small header controls and quick actions */
 .action-link {
-  color: #0d6efd; /* Bootstrap blue */
+  color: #0d6efd;
   background: transparent;
   padding: 6px 10px;
   border-radius: 8px;
@@ -357,13 +300,15 @@ textarea.form-control {
   display: inline-block;
   transition: background .12s ease, color .12s ease, transform .12s ease;
 }
+
+
 .action-link:hover {
   background: rgba(13,110,253,0.08);
   color: #0b5ed7;
   transform: translateY(-1px);
   text-decoration: none;
 }
-/* Make the main "View Faculty Schedules" look slightly more button-like */
+
 #viewSchedulesLink.action-link {
   border: 1px solid rgba(13,110,253,0.12);
   background: linear-gradient(180deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
@@ -373,9 +318,6 @@ textarea.form-control {
 @media (prefers-reduced-motion: reduce) {
   .action-link { transition: none; }
 }
-
-
-/* Grading Page Styling */
 
 .grading-wrap {
   max-width: 820px;
@@ -401,7 +343,6 @@ textarea.form-control {
   color: #444;
 }
 
-/* Table card container */
 .course-card {
   max-width: 720px;
   border: 1px solid #e7e7e7;
@@ -416,7 +357,6 @@ textarea.form-control {
   padding: 10px 14px;
 }
 
-/* Table styling */
 .grading-table {
   width: 100%;
   border-collapse: separate;
@@ -441,7 +381,6 @@ textarea.form-control {
   border-top: none;
 }
 
-/* “Next” button styling */
 .next-btn {
   background: #d67a2e;
   color: #fff;
@@ -460,7 +399,6 @@ textarea.form-control {
   transform: translateY(-1px);
 }
 
-/* square Edit button */
 .edit-square{
   width: 44px;
   height: 44px;
@@ -476,6 +414,7 @@ textarea.form-control {
   cursor: pointer;
   transition: background .15s ease, transform .12s ease, box-shadow .12s ease;
 }
+
 .edit-square:hover{
   background:#f4f4f4;
   transform: translateY(-1px);

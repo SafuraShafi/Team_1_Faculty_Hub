@@ -26,8 +26,6 @@
 
       <div class="d-flex align-items-center gap-2">
         <a href="index.html" class="logo-link d-flex align-items-center">
-          <!-- small logo image (app) -->
-          <!-- <img src="profile.png" alt="App logo" class="header-logo me-2" width="44" height="44"> -->
           <h1 class="faculty-logo mb-0">faculty <span class="fw-bold">HUB</span></h1>
         </a>
       </div>
@@ -36,7 +34,6 @@
         <a href="#" class="btn btn-light">Messages</a>
         <a href="schedule.html" class="btn btn-light">Schedule</a>
         <a href="grading.html" class="btn btn-light">Grading</a>
-        <!-- <img src="profile.png" alt="Profile" class="profile-pic rounded-circle" width="40" height="40"> -->
         <img src="profile.png" alt="Profile" class="profile-pic rounded-circle logout-icon" width="40" height="40" onclick="logout()" title="Logout">
       </div>
     </div>
@@ -118,16 +115,15 @@
           </div>
         </div>
 
-        <!-- Wizard (hidden until user clicks Submit a Schedule Request) -->
         <div id="wizardWrap" style="display:none;">
         <div class="row gx-4">
-          <!-- Left column: course selector + room list (some controls live here) -->
+          <!-- left column: course selector + room list -->
           <div class="col-lg-4 mb-4">
             <div class="card h-100" id="left-controls">
               <div class="card-body">
                 <h5 class="card-title">Course & Rooms</h5>
 
-                <!-- Step 1: select course -->
+                <!-- step 1: select course -->
                 <div class="mb-3">
                   <label for="courseSelect" class="form-label">Select One Course</label>
                   <select id="courseSelect" class="form-select">

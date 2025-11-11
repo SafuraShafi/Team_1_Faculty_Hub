@@ -37,7 +37,6 @@
   </header>
 
   <main class="container mt-5 pt-5">
-    <!-- ✅ PAGE 1: Course list -->
     <section id="grading-page1">
       <h2 class="fw-bold">Grading</h2>
       <p class="text-muted">Your current courses</p>
@@ -77,7 +76,6 @@
       </div>
     </section>
 
-    <!-- ✅ PAGE 2: Assignment list (click rows or Next to go to Page 3) -->
     <section id="grading-page2" style="display:none;">
       <h2 class="fw-bold">Grading</h2>
       <p class="text-muted">Market Research – MKT 3340.501</p>
@@ -127,7 +125,6 @@
       </div>
     </section>
 
-    <!-- ✅ PAGE 3: Students + Edit squares -->
     <section id="grading-page3" style="display:none;">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
@@ -194,79 +191,169 @@
       </div>
     </section>
 
-    <!-- ✅ PAGE 4: Placeholder (arrives after Edit confirm) -->
     <section id="grading-page4" style="display:none;">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
           <h2 class="grading-title mb-1">Grading</h2>
-          <small class="text-muted d-block">Edit Assignment</small>
+          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
         </div>
         <a href="index.html" class="back-link">Back to Dashboard</a>
       </div>
 
-      <div class="alert alert-info">You clicked “Edit”. We’ll build this editor next.</div>
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Graded Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="edit-assignment">Assignment 1</td>
+                <td id="edit-firstname">Safura</td>
+                <td id="edit-lastname">Shafi</td>
+                <td><input type="text" id="edit-grade" class="form-control text-center" placeholder="e.g. 95%" style="width:100px;"></td>
+                <td id="edit-date"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div class="text-center mt-4">
         <button id="backToPage3" class="btn btn-secondary px-4">Go Back</button>
+        <button id="submitGrade" class="btn btn-primary px-4 ms-2">Submit Changes</button>
+      </div>
+    </section>
+
+    <section id="grading-page5" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Submission Date</th>
+              </tr>
+            </thead>
+            <tbody id="updated-grades-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="goBackHome" class="btn btn-primary px-4">Go Back</button>
       </div>
     </section>
   </main>
 
-  <!-- Logic -->
   <script>
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      window.location.href = "Login.html";
-    }
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "Login.html";
+  }
 
-    // show only one section at a time
-    function showSection(id){
-      const ids = ["grading-page1","grading-page2","grading-page3","grading-page4"];
-      ids.forEach(s => {
-        const el = document.getElementById(s);
-        if (el) el.style.display = (s === id) ? "block" : "none";
+  function showSection(id){
+    const ids = ["grading-page1","grading-page2","grading-page3","grading-page4","grading-page5"];
+    ids.forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = (s === id) ? "block" : "none";
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("nextBtn")?.addEventListener("click", () => showSection("grading-page2"));
+  document.getElementById("backToPage1")?.addEventListener("click", () => showSection("grading-page1"));
+  document.getElementById("toPage3")?.addEventListener("click", () => showSection("grading-page3"));
+  document.getElementById("backToPage2")?.addEventListener("click", () => showSection("grading-page2"));
+  document.getElementById("backToPage3")?.addEventListener("click", () => showSection("grading-page3"));
+  document.getElementById("goBackHome")?.addEventListener("click", () => showSection("grading-page3"));
+
+  let currentAssignment = "Assignment 1";
+  let currentStudent = {};
+
+  function wireAssignmentLinks(){
+    document.querySelectorAll('#grading-page2 .assignment-link').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        currentAssignment = a.dataset.assignment; // capture assignment name
+        updateAssignmentLabels();
+        showSection('grading-page3');
       });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    });
+  }
 
-    // PAGE 1 → PAGE 2
-    document.getElementById("nextBtn")?.addEventListener("click", () => showSection("grading-page2"));
+  function updateAssignmentLabels() {
+    document.querySelectorAll(".grading-title").forEach(title => {
+      title.textContent = "Grading – " + currentAssignment;
+    });
+    document.querySelectorAll("#grading-page3 tbody tr td:first-child").forEach(td => {
+      td.textContent = currentAssignment;
+    });
+  }
 
-    // PAGE 2 buttons
-    document.getElementById("backToPage1")?.addEventListener("click", () => showSection("grading-page1"));
-    document.getElementById("toPage3")?.addEventListener("click", () => showSection("grading-page3"));
-
-    // PAGE 3 back
-    document.getElementById("backToPage2")?.addEventListener("click", () => showSection("grading-page2"));
-
-    // PAGE 4 back
-    document.getElementById("backToPage3")?.addEventListener("click", () => showSection("grading-page3"));
-
-    // Make all assignment names on PAGE 2 clickable → PAGE 3
-    function wireAssignmentLinks(){
-      document.querySelectorAll('#grading-page2 .assignment-link').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          e.preventDefault();
-          // could store a.dataset.assignment if you want to personalize page 3
-          showSection('grading-page3');
-        });
+  function wireEditSquares(){
+    document.querySelectorAll(".edit-square").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const row = btn.closest("tr");
+        currentStudent = {
+          assignment: currentAssignment,
+          firstName: row.children[1].textContent,
+          lastName: row.children[2].textContent,
+          gradeCell: row.children[3],
+          submissionDate: row.children[4].textContent
+        };
+        document.getElementById("edit-assignment").textContent = currentAssignment;
+        document.getElementById("edit-firstname").textContent = currentStudent.firstName;
+        document.getElementById("edit-lastname").textContent = currentStudent.lastName;
+        document.getElementById("edit-grade").value = "";
+        document.getElementById("edit-date").textContent = new Date().toLocaleDateString();
+        showSection("grading-page4");
       });
+    });
+  }
+
+  document.getElementById("submitGrade")?.addEventListener("click", () => {
+    const gradeInput = document.getElementById("edit-grade").value.trim();
+    if(!gradeInput){
+      alert("Please enter a grade.");
+      return;
     }
 
-    // Confirm on Edit squares (PAGE 3) → PAGE 4
-    function wireEditSquares(){
-      document.querySelectorAll(".edit-square").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const aName = btn.getAttribute("data-assignment") || "this assignment";
-          const ok = confirm(`Do you want to edit ${aName}?`);
-          if (ok) showSection("grading-page4");
-        });
-      });
-    }
+    currentStudent.gradeCell.textContent = gradeInput;
 
-    // wire interactions on load
-    wireAssignmentLinks();
-    wireEditSquares();
+    const updatedBody = document.getElementById("updated-grades-body");
+    updatedBody.innerHTML = `
+      <tr>
+        <td>${currentAssignment}</td>
+        <td>${currentStudent.firstName}</td>
+        <td>${currentStudent.lastName}</td>
+        <td>${gradeInput}</td>
+        <td>${currentStudent.submissionDate}</td>
+      </tr>
+    `;
+
+    showSection("grading-page5");
+  });
+
+  wireAssignmentLinks();
+  wireEditSquares();
   </script>
 
   <!-- Bootstrap JS -->
