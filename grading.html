@@ -37,9 +37,10 @@
   </header>
 
   <main class="container mt-5 pt-5">
+    <!-- PAGE 1: Course Selection -->
     <section id="grading-page1">
       <h2 class="fw-bold">Grading</h2>
-      <p class="text-muted">Your current courses</p>
+      <p class="text-muted">Select the course you want to grade:</p>
 
       <div class="table-responsive">
         <table class="table table-bordered text-center align-middle">
@@ -53,16 +54,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="course-row" data-course="Market Research – MKT 3340.501">
               <td>FA2025</td>
-              <td>Market Research</td>
+              <td><a href="#" class="course-link">Market Research</a></td>
               <td>MKT 3340</td>
               <td>25</td>
               <td>MW 2:00–3:15 PM</td>
             </tr>
-            <tr>
+            <tr class="course-row" data-course="Market Research – MKT 3340.502">
               <td>FA2025</td>
-              <td>Market Research</td>
+              <td><a href="#" class="course-link">Market Research</a></td>
               <td>MKT 3340</td>
               <td>25</td>
               <td>F 2:00–3:15 PM</td>
@@ -70,15 +71,12 @@
           </tbody>
         </table>
       </div>
-
-      <div class="text-center mt-4">
-        <button id="nextBtn" class="btn btn-primary px-4">Next</button>
-      </div>
     </section>
 
+    <!-- PAGE 2: Assignments -->
     <section id="grading-page2" style="display:none;">
       <h2 class="fw-bold">Grading</h2>
-      <p class="text-muted">Market Research – MKT 3340.501</p>
+      <p class="text-muted" id="selected-course-label">Market Research – MKT 3340.501</p>
 
       <div class="table-responsive">
         <table class="table table-bordered text-center align-middle">
@@ -121,15 +119,15 @@
 
       <div class="text-center mt-4">
         <button id="backToPage1" class="btn btn-secondary px-4">Go Back</button>
-        <button id="toPage3" class="btn btn-primary px-4 ms-2">Next</button>
       </div>
     </section>
 
+    <!-- PAGE 3: Student List -->
     <section id="grading-page3" style="display:none;">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
           <h2 class="grading-title mb-1">Grading</h2>
-          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
+          <small class="text-muted d-block" id="page3-course-label">Market Research – MKT 3340.501</small>
           <small class="text-muted">Grade your students' assignments!</small>
         </div>
         <a href="index.html" class="back-link">Back to Dashboard</a>
@@ -155,7 +153,7 @@
                 <td>Hasan</td>
                 <td>100%</td>
                 <td>8/21/2025</td>
-                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+                <td><button class="edit-square">Edit</button></td>
               </tr>
               <tr>
                 <td>Assignment 1</td>
@@ -163,7 +161,7 @@
                 <td>Shafi</td>
                 <td>—</td>
                 <td>8/21/2025</td>
-                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+                <td><button class="edit-square">Edit</button></td>
               </tr>
               <tr>
                 <td>Assignment 1</td>
@@ -171,15 +169,7 @@
                 <td>Oz</td>
                 <td>100%</td>
                 <td>8/21/2025</td>
-                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
-              </tr>
-              <tr>
-                <td>Assignment 1</td>
-                <td>Sarah</td>
-                <td>Hasan</td>
-                <td>100%</td>
-                <td>8/21/2025</td>
-                <td><button class="edit-square" data-assignment="Assignment 1">Edit</button></td>
+                <td><button class="edit-square">Edit</button></td>
               </tr>
             </tbody>
           </table>
@@ -191,11 +181,12 @@
       </div>
     </section>
 
+    <!-- PAGE 4: Edit Grade -->
     <section id="grading-page4" style="display:none;">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
           <h2 class="grading-title mb-1">Grading</h2>
-          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
+          <small class="text-muted d-block" id="page4-course-label">Market Research – MKT 3340.501</small>
         </div>
         <a href="index.html" class="back-link">Back to Dashboard</a>
       </div>
@@ -231,11 +222,12 @@
       </div>
     </section>
 
+    <!-- PAGE 5: Updated Grades -->
     <section id="grading-page5" style="display:none;">
       <div class="d-flex justify-content-between align-items-end mb-3">
         <div>
           <h2 class="grading-title mb-1">Grading</h2>
-          <small class="text-muted d-block">Market Research – MKT 3340.501</small>
+          <small class="text-muted d-block" id="page5-course-label">Market Research – MKT 3340.501</small>
         </div>
         <a href="index.html" class="back-link">Back to Dashboard</a>
       </div>
@@ -278,26 +270,35 @@
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  document.getElementById("nextBtn")?.addEventListener("click", () => showSection("grading-page2"));
   document.getElementById("backToPage1")?.addEventListener("click", () => showSection("grading-page1"));
-  document.getElementById("toPage3")?.addEventListener("click", () => showSection("grading-page3"));
   document.getElementById("backToPage2")?.addEventListener("click", () => showSection("grading-page2"));
   document.getElementById("backToPage3")?.addEventListener("click", () => showSection("grading-page3"));
   document.getElementById("goBackHome")?.addEventListener("click", () => showSection("grading-page3"));
 
+  let currentCourse = "";
   let currentAssignment = "Assignment 1";
   let currentStudent = {};
 
-  function wireAssignmentLinks(){
-    document.querySelectorAll('#grading-page2 .assignment-link').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        currentAssignment = a.dataset.assignment; // capture assignment name
-        updateAssignmentLabels();
-        showSection('grading-page3');
-      });
+  document.querySelectorAll(".course-row").forEach(row => {
+    row.addEventListener("click", e => {
+      e.preventDefault();
+      currentCourse = row.dataset.course;
+      document.getElementById("selected-course-label").textContent = currentCourse;
+      document.getElementById("page3-course-label").textContent = currentCourse;
+      document.getElementById("page4-course-label").textContent = currentCourse;
+      document.getElementById("page5-course-label").textContent = currentCourse;
+      showSection("grading-page2");
     });
-  }
+  });
+
+  document.querySelectorAll(".assignment-link").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      currentAssignment = link.dataset.assignment;
+      updateAssignmentLabels();
+      showSection("grading-page3");
+    });
+  });
 
   function updateAssignmentLabels() {
     document.querySelectorAll(".grading-title").forEach(title => {
@@ -308,26 +309,24 @@
     });
   }
 
-  function wireEditSquares(){
-    document.querySelectorAll(".edit-square").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const row = btn.closest("tr");
-        currentStudent = {
-          assignment: currentAssignment,
-          firstName: row.children[1].textContent,
-          lastName: row.children[2].textContent,
-          gradeCell: row.children[3],
-          submissionDate: row.children[4].textContent
-        };
-        document.getElementById("edit-assignment").textContent = currentAssignment;
-        document.getElementById("edit-firstname").textContent = currentStudent.firstName;
-        document.getElementById("edit-lastname").textContent = currentStudent.lastName;
-        document.getElementById("edit-grade").value = "";
-        document.getElementById("edit-date").textContent = new Date().toLocaleDateString();
-        showSection("grading-page4");
-      });
+  document.querySelectorAll(".edit-square").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const row = btn.closest("tr");
+      currentStudent = {
+        assignment: currentAssignment,
+        firstName: row.children[1].textContent,
+        lastName: row.children[2].textContent,
+        gradeCell: row.children[3],
+        submissionDate: row.children[4].textContent
+      };
+      document.getElementById("edit-assignment").textContent = currentAssignment;
+      document.getElementById("edit-firstname").textContent = currentStudent.firstName;
+      document.getElementById("edit-lastname").textContent = currentStudent.lastName;
+      document.getElementById("edit-grade").value = "";
+      document.getElementById("edit-date").textContent = new Date().toLocaleDateString();
+      showSection("grading-page4");
     });
-  }
+  });
 
   document.getElementById("submitGrade")?.addEventListener("click", () => {
     const gradeInput = document.getElementById("edit-grade").value.trim();
@@ -351,9 +350,6 @@
 
     showSection("grading-page5");
   });
-
-  wireAssignmentLinks();
-  wireEditSquares();
   </script>
 
   <!-- Bootstrap JS -->
