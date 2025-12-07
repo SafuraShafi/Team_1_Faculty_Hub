@@ -17,8 +17,8 @@
     <div class="d-flex justify-content-between align-items-center p-3 px-4">
       <div class="d-flex gap-2">
         <a href="about.html" class="btn btn-light">About Us</a>
-        <a href="#" class="btn btn-light">Need Help?</a>
-        <a href="#" class="btn btn-light">Report Statuses</a>
+        <a href="help.html" class="btn btn-light">Need Help?</a>
+        <!-- <a href="#" class="btn btn-light">Report Statuses</a> -->
       </div>
 
       <div class="d-flex align-items-center gap-2">
@@ -28,7 +28,7 @@
       </div>
 
       <div class="d-flex gap-2">
-        <a href="#" class="btn btn-light">Messages</a>
+        <!-- <a href="#" class="btn btn-light">Messages</a> -->
         <a href="schedule.html" class="btn btn-light">Schedule</a>
         <a href="grading.html" class="btn btn-light">Grading</a>
         <img src="profile.png" alt="Profile" class="profile-pic rounded-circle logout-icon" width="40" height="40" onclick="logout()" title="Logout">
@@ -48,24 +48,51 @@
               <th>Semester</th>
               <th>Course Name</th>
               <th>Course #</th>
+              <th>Section</th>
               <th>Seat Capacity</th>
               <th>Time</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="course-row" data-course="Market Research – MKT 3340.501">
+            <tr class="course-row" data-course="Human Computer Interaction – HCI 4352.001">
               <td>FA2025</td>
-              <td><a href="#" class="course-link">Market Research</a></td>
-              <td>MKT 3340</td>
+              <td><a href="#" class="course-link">Human Computer Interaction</a></td>
+              <td>HCI 4352</td>
+              <td>001</td>
               <td>25</td>
-              <td>MW 2:00–3:15 PM</td>
+              <td>M/W 2:30–3:45 PM</td>
             </tr>
             <tr class="course-row" data-course="Market Research – MKT 3340.502">
               <td>FA2025</td>
               <td><a href="#" class="course-link">Market Research</a></td>
               <td>MKT 3340</td>
+              <td>005</td>
               <td>25</td>
               <td>F 2:00–3:15 PM</td>
+            </tr>
+            <tr class="course-row" data-course="Paradigms – CS 4337.002">
+              <td>FA2025</td>
+              <td><a href="#" class="course-link">Programming Language Paradigms</a></td>
+              <td>CS 4337</td>
+              <td>002</td>
+              <td>25</td>
+              <td>T/Th 2:30–3:45 PM</td>
+            </tr>
+            <tr class="course-row" data-course="Automata – CS 4384.502">
+              <td>FA2025</td>
+              <td><a href="#" class="course-link">Automata Theory</a></td>
+              <td>CS 4384</td>
+              <td>502</td>
+              <td>25</td>
+              <td>M/W 5:30-6:45 PM</td>
+            </tr>
+            <tr class="course-row" data-course="Database – CS 4343.009">
+              <td>FA2025</td>
+              <td><a href="#" class="course-link">Database Systems</a></td>
+              <td>CS 4343.009</td>
+              <td>009</td>
+              <td>25</td>
+              <td>T/Th 1:00-2:15 PM</td>
             </tr>
           </tbody>
         </table>
@@ -116,7 +143,7 @@
       </div>
 
       <div class="text-center mt-4">
-        <button id="backToPage1" class="btn btn-secondary px-4">Go Back</button>
+         <button id="backToPage1" class="btn btn-wizard px-4">Go Back</button>
       </div>
     </section>
 
@@ -177,7 +204,7 @@
       </div>
 
       <div class="text-center mt-4">
-        <button id="backToPage2" class="btn btn-secondary px-4">Go Back</button>
+        <button id="backToPage2" class="btn btn-wizard px-4">Go Back</button>
       </div>
     </section>
 
@@ -216,8 +243,8 @@
       </div>
 
       <div class="text-center mt-4">
-        <button id="backToPage3" class="btn btn-secondary px-4">Go Back</button>
-        <button id="submitGrade" class="btn btn-primary px-4 ms-2">Submit Changes</button>
+        <button id="backToPage3" class="btn btn-wizard px-4">Go Back</button>
+        <button id="submitGrade" class="btn btn-wizard px-4 ms-2">Submit Changes</button>
       </div>
     </section>
 

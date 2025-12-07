@@ -224,7 +224,8 @@ main { padding-top: 140px; }
 
 .btn-primary,.btn-wizard { background:#d67a2e;color:#fff;border:none; }
 
-.btn-secondary { background:#f2f2f2;color:#222;border:none; }
+/* .btn-secondary { background:#f2f2f2;color:#222;border:none; } */
+.btn-secondary { background:#f2f2f2;color:#222;outline: black;}
 
 .schedule-card {
   border-radius: 14px;

@@ -16,11 +16,12 @@
 </head>
 
 <body>
-<script>
-  if (!localStorage.getItem("isLoggedIn")) {
-    window.location.href = "Login.html";
-  }
-</script>
+    <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "Login.html";
+    }
+    </script>
+<body>
 
 <header class="faculty-header">
   <div class="d-flex justify-content-between align-items-center p-3 px-4">
@@ -45,39 +46,39 @@
   </div>
 </header>
 
-<main class="top-bg-section">
-    <div class="top-bg-overlay py-5">
-      <div class="container">
+<main class="container py-5 mt-5 pt-5">
+  <h2 class="text-center mb-4">About facultyHUB</h2>
 
-        <!-- Welcome heading -->
-        <h2 class="welcome text-white">Welcome to the HUB, Bob!</h2>
-        <h5 class="text-uppercase welcome-subheading">The University of Texas at Dallas</h5>
+  <p class="lead text-center mb-5">
+    Faculty Hub is designed to bring all essential professor  tasks together 
+    in <br> one convenient online platform and support a more connected academic community.
+  </p>
 
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-        <!-- Faculty Posts section -->
-        <section class="mt-4 faculty-post-section">
-          <h4 class="text-white mb-3">Faculty Posts</h4>
+      <div class="bg-light p-4 rounded shadow-sm mb-3">
+        <h4 class="mb-2">📘 Centralized Grading Tools</h4>
+        <p>
+          Easily view, update, and manage grades for all your courses. Faculty Hub streamlines the grading process so you can focus on delivering quality instruction.
+        </p>
+      </div>
 
-          <div class="form-group mb-3">
-            <textarea class="form-control" rows="2" placeholder="Write something..."></textarea>
-          </div>
+      <div class="bg-light p-4 rounded shadow-sm mb-3">
+        <h4 class="mb-2">📅 Schedule Management</h4>
+        <p>
+          Plan upcoming semesters, organize office hours, and update your teaching schedule—all in one place.
+        </p>
+      </div>
 
-          <div class="post p-3 bg-light rounded shadow-sm">
-            <div class="d-flex align-items-center mb-2">
-              <img src="profile.png" alt="Faculty" class="rounded-circle me-2" width="50" height="50">
-              <div>
-                <strong>Dr. May April</strong><br>
-                <small class="text-muted">UTD Faculty Advisor</small>
-              </div>
-              <span class="ms-auto text-muted small">October 2nd, 2025</span>
-            </div>
-            <p>Hello, everyone! Just a reminder to submit your grades, any reports, and questions to our department’s team in order for students to be able to view them and for us to fulfill any issues ASAP.</p>
-            <button class="btn btn-sm btn-secondary">Reply</button>
-            <a href="#" class="ms-2 small">4 Comments</a>
-          </div>
-        </section>
+      <div class="bg-light p-4 rounded shadow-sm mb-3">
+        <h4 class="mb-2">🤝 Collaboration</h4>
+        <p>
+          Share lesson plans, resources, and updates with other faculty members to support teamwork and consistent teaching practices.
+        </p>
       </div>
     </div>
+  </div>
 </main>
 
 <script>
@@ -87,9 +88,9 @@
   }
 </script>
 
-<!-- Bootstrap + JS -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/script.js"></script>
+
 </body>
 </html>
-
