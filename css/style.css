@@ -187,6 +187,35 @@ h5, .card-title {
 
 .faculty-header .btn:hover { background:#f0f0f0; }
 
+.faculty-header .btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: white;
+}
+
+.faculty-header .btn-success {
+  background-color: #198754;
+  border-color: #198754;
+  color: white;
+}
+
+.faculty-header .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.action-link {
+  color: #d67a2e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.action-link:hover {
+  color: #b8651f;
+  text-decoration: underline;
+}
+
 .profile-pic { object-fit: cover; border: 2px solid white; }
 
 main { padding-top: 140px; }
@@ -238,6 +267,25 @@ main { padding-top: 140px; }
 .text-muted.small { font-size: .95rem; color:#6c757d; }
 
 .welcome { font-weight: 600; color: #333; }
+
+.welcome-container-full {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 20px 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  margin-bottom: 30px;
+  width: 100%;
+  display: block;
+}
+
+.welcome-container-full .welcome {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.welcome-container-full .welcome-subheading {
+  margin-bottom: 0;
+}
 
 .logout-btn {
   position: fixed;
