@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const state = {
+	var state = {
 		step: 1,
 		maxStep: 5,
 		selection: {
@@ -30,23 +30,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function saveRequestsToLocalStorage(entry) {
 		try {
-			const key = 'scheduleRequests';
-			const existing = JSON.parse(localStorage.getItem(key) || '[]');
+			var key = 'scheduleRequests';
+			var existing = JSON.parse(localStorage.getItem(key) || '[]');
+			
+			if (entry.type === 'schedule-request' && !entry.status) {
+				entry.status = 'pending';
+			}
+			
 			existing.push(entry);
 			localStorage.setItem(key, JSON.stringify(existing));
-			// If it's a schedule request, refresh the landing list immediately
-				try { if (entry && entry.type === 'schedule-request' && typeof renderLandingSchedules === 'function') renderLandingSchedules(); } catch (e) { /* ignore */ }
-				// show a lightweight toast if available
-				try { if (typeof showToast === 'function') showToast('Saved'); } catch (e) { /* ignore */ }
+			
+			try { 
+				if (entry && entry.type === 'schedule-request' && typeof renderLandingSchedules === 'function') {
+					renderLandingSchedules(); 
+				}
+			} catch (e) { }
+			
+			try { 
+				if (typeof showToast === 'function') {
+					var message = entry.type === 'schedule-request' ? 'Schedule Request Submitted!' : 'Saved';
+					showToast(message); 
+				}
+			} catch (e) { }
 		} catch (e) {
 			console.error('Failed to save schedule request', e);
 		}
 	}
 
-		// submit - saves a quick message to localStorage
-	if (submitRequestBtn) {
+		if (submitRequestBtn) {
 		submitRequestBtn.addEventListener('click', function () {
-			const text = scheduleRequest.value.trim();
+			var text = scheduleRequest.value.trim();
 			if (!text) {
 				alert('Please enter a request before submitting.');
 				return;
@@ -65,7 +78,96 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Next/Go Back wiring: switch visible step panels and update button labels
+
+
+
+
+	function validateStep(step) {
+		switch(step) {
+			case 1:
+				var course = (panelCourseSelect && panelCourseSelect.value) ? panelCourseSelect.value : (courseSelect ? courseSelect.value || null : null);
+				if (!course) {
+					return false;
+				}
+				if (isDuplicateCourse(course)) {
+					showValidationError('You have already requested this course. Please select a different course.');
+					return false;
+				}
+				return true;
+			case 2:
+				let times = [];
+				if (panelTimeSelect && panelTimeSelect.value) {
+					times = [panelTimeSelect.value];
+				} else {
+					timeOptions.forEach(cb => { if (cb.checked) times.push(cb.value); });
+				}
+				return times.length > 0;
+			case 3:
+				const room = (panelRoomSelect && panelRoomSelect.value) ? panelRoomSelect.value : null;
+				return !!room;
+			case 4:
+				const capacity = capacitySelect ? capacitySelect.value || null : null;
+				return !!capacity;
+			default:
+				return true;
+		}
+	}
+
+	function updateNextButtonVisibility() {
+		if (!nextBtn) return;
+		
+		const isValid = validateStep(state.step);
+		if (isValid) {
+			nextBtn.style.display = '';
+			nextBtn.disabled = false;
+		} else {
+			nextBtn.style.display = 'none';
+		}
+	}
+
+	function isDuplicateCourse(courseToCheck) {
+		const existing = JSON.parse(localStorage.getItem('scheduleRequests') || '[]');
+		return existing.some(req => req.type === 'schedule-request' && req.course === courseToCheck && req.status !== 'rejected');
+	}
+
+	function showValidationError(message) {
+		// Remove any existing error message
+		const existingError = document.querySelector('.validation-error');
+		if (existingError) existingError.remove();
+		
+		// Create and show new error message
+		const errorDiv = document.createElement('div');
+		errorDiv.className = 'alert alert-danger validation-error mt-2';
+		errorDiv.style.fontSize = '14px';
+		errorDiv.style.padding = '8px 12px';
+		errorDiv.textContent = message;
+		
+		// Insert inside the current step panel at the end
+		const currentPanel = document.querySelector('.step-panel:not(.d-none)');
+		if (currentPanel) {
+			currentPanel.appendChild(errorDiv);
+		}
+		
+		// Auto-remove after 5 seconds
+		setTimeout(() => {
+			if (errorDiv.parentNode) errorDiv.remove();
+		}, 5000);
+	}
+
+
+
+	if (panelCourseSelect) {
+		panelCourseSelect.addEventListener('change', updateNextButtonVisibility);
+	}
+	if (panelTimeSelect) {
+		panelTimeSelect.addEventListener('change', updateNextButtonVisibility);
+	}
+	if (panelRoomSelect) {
+		panelRoomSelect.addEventListener('change', updateNextButtonVisibility);
+	}
+	if (capacitySelect) {
+		capacitySelect.addEventListener('change', updateNextButtonVisibility);
+	}
 	function showStep(s) {
 		state.step = s;
 		// hide all panels
@@ -80,42 +182,88 @@ document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(() => panel.classList.add('fade-in'), 20);
 		}
 
-		// expand center panel for single-column steps (1,2,4)
-		const wrap = document.getElementById('wizardWrap');
-		if (wrap) {
-			if (s === 1 || s === 2 || s === 4) wrap.classList.add('full'); else wrap.classList.remove('full');
+		if (goBackBtn) {
+			if (s <= 1) goBackBtn.textContent = 'Back'; else goBackBtn.textContent = 'Go Back';
 		}
-
-		// update buttons
-		if (s <= 1) goBackBtn.textContent = 'Back'; else goBackBtn.textContent = 'Go Back';
-		// Use clearer submit wording on the final step
-		if (s >= state.maxStep) nextBtn.textContent = 'Submit Schedule Request'; else nextBtn.textContent = 'Next';
-		console.log('Wizard step:', s);
-		// render review when on final step
+		
+		if (nextBtn) {
+			if (s >= state.maxStep) {
+				nextBtn.textContent = 'Submit Schedule Request';
+				nextBtn.classList.add('btn-success');
+				nextBtn.classList.remove('btn-primary');
+			} else {
+				nextBtn.textContent = 'Next';
+				nextBtn.classList.add('btn-primary');
+				nextBtn.classList.remove('btn-success');
+			}
+		}
+		var errors = document.querySelectorAll('.validation-error');
+		errors.forEach(error => error.remove());
+		
 		if (s === state.maxStep) renderReview();
-		// focus first input inside the panel for accessibility
+		updateNextButtonVisibility();
 		if (panel) {
-			const focusable = panel.querySelector('select, input, textarea, button');
+			var focusable = panel.querySelector('select, input, textarea, button');
 			if (focusable) focusable.focus({preventScroll:true});
 		}
 	}
 
-	if (goBackBtn) { goBackBtn.addEventListener('click', function () {
-		if (state.step > 1) {
-			showStep(state.step - 1);
-		} else {
-			// if wizard is visible, go back to landing; otherwise go to dashboard
-			if (wizardWrap && landingDiv && wizardWrap.style.display !== 'none') {
-				wizardWrap.style.display = 'none';
-				landingDiv.style.display = '';
-				// reset selection state
-				state.selection = { course: null, room: null, times: [], capacity: null, requestText: null };
-				return;
+	if (goBackBtn) { 
+		goBackBtn.addEventListener('click', function () {
+			if (state.step > 1) {
+				showStep(state.step - 1);
+			} else {
+				if (wizardWrap && landingDiv && wizardWrap.style.display !== 'none') {
+					wizardWrap.style.display = 'none';
+					landingDiv.style.display = '';
+					state.selection = { course: null, room: null, times: [], capacity: null, requestText: null };
+					return;
+				}
+				window.location.href = 'index.html';
 			}
-			window.location.href = 'index.html';
-		}
-	}); }
+		}); 
+	}
 
+	if (nextBtn) {
+		nextBtn.addEventListener('click', function () {
+			// Validate current step before proceeding
+			if (!validateStep(state.step)) {
+				return; // Stop if validation fails
+			}
+			
+			collectStepInputs();
+			
+			if (state.step < state.maxStep) {
+				showStep(state.step + 1);
+			} else {
+				nextBtn.disabled = true;
+				nextBtn.textContent = 'Submitting...';
+				
+				var summary = {
+					type: 'schedule-request',
+					course: state.selection.course,
+					room: state.selection.room,
+					times: state.selection.times,
+					capacity: state.selection.capacity,
+					quickRequest: (scheduleRequest && scheduleRequest.value) ? scheduleRequest.value.trim() : null,
+					status: 'pending',
+					ts: new Date().toISOString()
+				};
+				setTimeout(() => {
+					saveRequestsToLocalStorage(summary);
+					console.log('Schedule request saved (via Finish):', summary);
+					// show confirmation screen
+					showConfirmation();
+					// Reset flow and UI selections
+					resetForm();
+					// Re-enable button
+					nextBtn.disabled = false;
+					nextBtn.textContent = 'Submit Schedule Request';
+				}, 1000);
+			}
+		});
+	}
+	
 	function collectStepInputs() {
 		if (state.step === 1) {
 			// prefer the centered panel select when visible
@@ -137,35 +285,40 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	}
 
-	if (nextBtn) {
-		nextBtn.addEventListener('click', function () {
-			collectStepInputs();
-			if (state.step < state.maxStep) {
-				showStep(state.step + 1);
-			} else {
-				// finalize: combine quick request text (if any) and save, then show confirmation
-				const summary = {
-					type: 'schedule-request',
-					course: state.selection.course,
-					room: state.selection.room,
-					times: state.selection.times,
-					capacity: state.selection.capacity,
-					quickRequest: (scheduleRequest && scheduleRequest.value) ? scheduleRequest.value.trim() : null,
-					ts: new Date().toISOString(),
-				};
-				saveRequestsToLocalStorage(summary);
-				console.log('Schedule request saved (via Finish):', summary);
-				// show confirmation screen
-				showConfirmation();
-				// Reset flow and UI selections
-				state.selection = { course: null, room: null, times: [], capacity: null, requestText: null };
-				if (courseSelect) courseSelect.value = '';
-				if (roomSelect) roomSelect.value = '';
-				timeOptions.forEach(cb => cb.checked = false);
-				if (capacitySelect) capacitySelect.value = '';
-				if (scheduleRequest) scheduleRequest.value = '';
-			}
-		});
+	function resetForm() {
+		state.selection = { course: null, room: null, times: [], capacity: null, requestText: null };
+		if (courseSelect) courseSelect.value = '';
+		if (panelCourseSelect) panelCourseSelect.value = '';
+		if (roomSelect) roomSelect.value = '';
+		if (panelRoomSelect) panelRoomSelect.value = '';
+		if (panelTimeSelect) panelTimeSelect.value = '';
+		timeOptions.forEach(cb => cb.checked = false);
+		if (capacitySelect) capacitySelect.value = '';
+		if (scheduleRequest) scheduleRequest.value = '';
+		
+		// Remove any validation errors
+		const errors = document.querySelectorAll('.validation-error');
+		errors.forEach(error => error.remove());
+		
+		// Reset to step 1
+		showStep(1);
+	}
+
+	function renderReview() {
+		if (!reviewContainer) return;
+		const s = state.selection;
+		const html = `
+			<table class="table table-sm">
+				<tbody>
+					<tr><th>Course</th><td>${s.course || '—'}</td></tr>
+					<tr><th>Times</th><td>${(s.times && s.times.length) ? s.times.join(', ') : '—'}</td></tr>
+					<tr><th>Room</th><td>${s.room || '—'}</td></tr>
+					<tr><th>Capacity</th><td>${s.capacity || '—'}</td></tr>
+					<tr><th>Quick Request</th><td>${(scheduleRequest && scheduleRequest.value) ? scheduleRequest.value.trim() : '—'}</td></tr>
+				</tbody>
+			</table>
+		`;
+		reviewContainer.innerHTML = html;
 	}
 
 	// helper: show confirmation UI inside landing, hide wizard, registration, and navigation buttons
@@ -201,50 +354,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	function renderReview() {
-		if (!reviewContainer) return;
-		const s = state.selection;
-		const html = `
-			<table class="table table-sm">
-				<tbody>
-					<tr><th>Course</th><td>${s.course || '—'}</td></tr>
-					<tr><th>Times</th><td>${(s.times && s.times.length) ? s.times.join(', ') : '—'}</td></tr>
-					<tr><th>Room</th><td>${s.room || '—'}</td></tr>
-					<tr><th>Capacity</th><td>${s.capacity || '—'}</td></tr>
-					<tr><th>Quick Request</th><td>${(scheduleRequest && scheduleRequest.value) ? scheduleRequest.value.trim() : '—'}</td></tr>
-				</tbody>
-			</table>
-		`;
-		reviewContainer.innerHTML = html;
-	}
 
-	// wire submitSchedule button if present
-	if (submitScheduleBtn) {
-		submitScheduleBtn.addEventListener('click', function () {
-			// collect any remaining inputs then save
-			collectStepInputs();
-			const final = {
-				type: 'schedule-request',
-				course: state.selection.course,
-				room: state.selection.room,
-				times: state.selection.times,
-				capacity: state.selection.capacity,
-				quickRequest: (scheduleRequest && scheduleRequest.value) ? scheduleRequest.value.trim() : null,
-				ts: new Date().toISOString(),
-			};
-			saveRequestsToLocalStorage(final);
-			console.log('Final schedule saved:', final);
-			// show confirmation screen and hide wizard
-			showConfirmation();
-			// Reset selections
-			state.selection = { course: null, room: null, times: [], capacity: null, requestText: null };
-			if (courseSelect) courseSelect.value = '';
-			if (roomSelect) roomSelect.value = '';
-			timeOptions.forEach(cb => cb.checked = false);
-			if (capacitySelect) capacitySelect.value = '';
-			if (scheduleRequest) scheduleRequest.value = '';
-		});
-	}
 
 	// render landing schedules from localStorage
 	function renderLandingSchedules() {
@@ -253,27 +363,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		const all = JSON.parse(localStorage.getItem('scheduleRequests') || '[]');
 		const schedules = all.filter(it => it && it.type === 'schedule-request');
 		if (!schedules.length) {
-			tbody.innerHTML = '<tr><td class="text-muted">No schedules yet</td><td></td><td></td></tr>';
+			tbody.innerHTML = '<tr><td class="text-muted">No schedules yet</td><td></td><td></td><td></td></tr>';
 			return;
 		}
-		// aggregate by course so we don't repeat the same class multiple times
-		const byCourse = {};
-		schedules.forEach(s => {
-			const key = s.course || s.courseTitle;
-			if (!key) return; // skip entries without course info
-			if (!byCourse[key]) {
-				byCourse[key] = { course: key, room: s.room || '—', capacity: s.capacity || '—' };
+		
+		// Parse course information properly
+		const rows = schedules.map(s => {
+			// Parse course string (e.g., "MATH-101" -> "MATH", "101")
+			let courseName = '—';
+			let courseNum = '—';
+			if (s.course) {
+				const parts = s.course.split('-');
+				if (parts.length >= 2) {
+					courseName = parts[0];
+					courseNum = parts.slice(1).join('-');
+				} else {
+					courseName = s.course;
+				}
 			}
+			
+			const semester = 'Spring 2026'; // Default semester for new requests
+			const status = s.status || 'pending';
+			const statusClass = status === 'approved' ? 'success' : status === 'rejected' ? 'danger' : 'warning';
+			const statusBadge = `<span class="badge bg-${statusClass}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+			
+			return `<tr><td>${courseName}</td><td>${courseNum}</td><td>${semester}</td><td>${statusBadge}</td></tr>`;
 		});
-
-		const headersHtml = '<tr class="schedule-headers"><th>Semester</th><th>Course Name</th><th>Course #</th><th>Seat Capacity</th></tr>';
-		const rows = Object.values(byCourse).map(s => {
-			const semester = s.semester || '—';
-			const courseName = s.course || '—';
-			const courseNum = s.courseNum || '—';
-			return `<tr><td>${semester}</td><td>${courseName}</td><td>${courseNum}</td><td>${s.capacity}</td></tr>`;
-		});
-		tbody.innerHTML = headersHtml + rows.join('');
+		tbody.innerHTML = rows.join('');
 	}
 
 	showStep(1);

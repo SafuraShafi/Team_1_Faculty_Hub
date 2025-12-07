@@ -385,3 +385,124 @@ textarea.form-control { border-radius: 8px; resize: none; }
   transform:translateY(-1px);
   box-shadow:0 2px 6px rgba(0,0,0,.06);
 }
+
+/* Validation and Form Styling */
+.validation-error {
+  border-left: 4px solid #dc3545;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-select:focus, .form-control:focus {
+  border-color: #d67a2e;
+  box-shadow: 0 0 0 0.2rem rgba(214, 122, 46, 0.25);
+}
+
+.pulse {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.simple-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  font-weight: 500;
+}
+
+.simple-toast.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Enhanced Dashboard Cards */
+.card.bg-primary, .card.bg-success, .card.bg-warning {
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.bg-primary:hover, .card.bg-success:hover, .card.bg-warning:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card .badge {
+  font-size: 0.75em;
+  padding: 0.5em 0.75em;
+}
+
+/* Schedule Table Improvements */
+.schedule-headers th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table-borderless tbody tr:hover {
+  background-color: rgba(214, 122, 46, 0.05);
+}
+
+/* Button Improvements */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Wizard Step Transitions */
+.step-panel {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.step-panel.fade-in {
+  opacity: 1;
+}
+
+.wizardWrap.visible {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
