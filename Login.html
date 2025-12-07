@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FacultyHub – Login</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #d67a2e;
+      --accent-hover: #bf6b26;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Poppins', 'Roboto', sans-serif;
+      background: url('UTDbg.jpg') center/cover no-repeat;
+      position: relative;
+      color: #222;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+      z-index: 0;
+    }
+
+    #cometCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .faculty-header {
+      background-color: var(--accent);
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .faculty-header .header-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+    }
+
+    .faculty-logo {
+      font-family: 'Poppins', serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      color: rgb(0, 0, 0);
+      margin: 0;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .faculty-logo:hover {
+      text-shadow: 0 0 8px rgba(255,255,255,0.4);
+      transform: scale(1.02);
+    }
+
+    .login-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      z-index: 3;
+      padding-top: 80px;
+      flex-direction: column;
+    }
+
+    .login-container {
+      background: rgba(255,255,255,0.92);
+      border-radius: 14px;
+      padding: 40px 35px;
+      width: 360px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      text-align: center;
+      transition: box-shadow 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container h2 {
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 25px;
+      font-size: 1.7rem;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      background: #f9f9f9;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-group input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 6px rgba(214,122,46,0.3);
+      background: #fff;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #777;
+      transition: color 0.2s ease;
+    }
+
+    .toggle-password:hover {
+      color: var(--accent);
+    }
+
+    .error-message {
+      color: #b00020;
+      margin-bottom: 10px;
+      font-size: 0.9em;
+      min-height: 1.2em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--accent);
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.06);
+    }
+
+    button:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .links {
+      margin-top: 15px;
+    }
+
+    .links a {
+      color: #0c5e87;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+
+    .loading { background-color: #ccc !important; cursor: not-allowed; }
+    .success-state { color: #28a745; font-weight: 600; margin-top: 15px; animation: fadeIn 0.6s ease forwards; }
+
+    .greeting {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+    @keyframes fadeUp { from {opacity: 0; transform: translateY(15px);} to {opacity: 1; transform: translateY(0);} }
+  </style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+  <canvas id="cometCanvas"></canvas>
+
+  <header class="faculty-header">
+    <div class="header-inner">
+      <a href="index.html" class="faculty-logo">faculty <strong>HUB</strong></a>
+    </div>
+  </header>
+
+  <div class="login-wrapper">
+    <div id="timeGreeting" class="greeting"></div> <!-- 🌅 Greeting -->
+    <div class="login-container">
+      <div class="error-message" id="error-message"></div>
+      <h2>Sign In</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="text" id="username" placeholder="Username" required>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required>
+          <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+        </div>
+        <button type="submit" id="loginButton">Login</button>
+        <div class="links">
+          <a href="#">Forgot password?</a>
+        </div>
+        <div id="feedback" class="success-state" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+    const greetingEl = document.getElementById("timeGreeting");
+    const hour = new Date().getHours();
+    let greeting;
+    if (hour < 12) greeting = "Good morning, Professor ☀️";
+    else if (hour < 18) greeting = "Good afternoon, Professor 🌇";
+    else greeting = "Good evening, Professor 🌙";
+    greetingEl.textContent = greeting;
+
+
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(i => i.addEventListener("focus", () => {
+      greetingEl.style.transition = "opacity 0.5s ease";
+      greetingEl.style.opacity = "0";
+    }));
+
+
+    const canvas = document.getElementById("cometCanvas");
+    const ctx = canvas.getContext("2d");
+    let w, h, mouse = {x: 0, y: 0};
+    let comet;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      comet = {
+        x: -100,
+        y: Math.random() * h * 0.6 + h * 0.2,
+        vx: 1.5,
+        vy: -0.4,
+        tail: []
+      };
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      let dx = comet.x - mouse.x, dy = comet.y - mouse.y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) { comet.vx += dx / 1000; comet.vy += dy / 1000; }
+
+      comet.x += comet.vx;
+      comet.y += comet.vy;
+      comet.tail.push({x: comet.x, y: comet.y});
+      if (comet.tail.length > 50) comet.tail.shift();
+
+      for (let i = 0; i < comet.tail.length; i++) {
+        const p = comet.tail[i];
+        const alpha = i / comet.tail.length;
+        const radius = 2 + (i / comet.tail.length) * 3;
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 2);
+        gradient.addColorStop(0, `rgba(214,122,46,${alpha * 0.7})`);
+        gradient.addColorStop(1, "transparent");
+        ctx.fillStyle = gradient;
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      const headGradient = ctx.createRadialGradient(comet.x, comet.y, 0, comet.x, comet.y, 12);
+      headGradient.addColorStop(0, "white");
+      headGradient.addColorStop(0.3, "rgba(214,122,46,0.9)");
+      headGradient.addColorStop(1, "transparent");
+      ctx.fillStyle = headGradient;
+      ctx.arc(comet.x, comet.y, 12, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (comet.x < -150 || comet.x > w + 150 || comet.y < -150 || comet.y > h + 150) {
+        const edge = Math.floor(Math.random() * 4);
+        const baseSpeed = 1.4 + Math.random() * 0.6;
+        if (edge === 0) { comet.x = -100; comet.y = Math.random() * h; comet.vx = baseSpeed; comet.vy = (Math.random() - 0.5) * 1.2; }
+        else if (edge === 1) { comet.x = w + 100; comet.y = Math.random() * h; comet.vx = -baseSpeed; comet.vy = (Math.random() - 0.5) * 1.2; }
+        else if (edge === 2) { comet.x = Math.random() * w; comet.y = -100; comet.vx = (Math.random() - 0.5) * 1.2; comet.vy = baseSpeed; }
+        else { comet.x = Math.random() * w; comet.y = h + 100; comet.vx = (Math.random() - 0.5) * 1.2; comet.vy = -baseSpeed; }
+        comet.tail = [];
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+  
+    function togglePasswordVisibility() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    const form = document.getElementById("loginForm");
+    const error = document.getElementById("error-message");
+    const button = document.getElementById("loginButton");
+    const feedback = document.getElementById("feedback");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      error.textContent = "";
+      feedback.style.display = "none";
+
+      if (!user || !pass) return error.textContent = "Please fill in both fields.";
+      if (pass.length < 6) return error.textContent = "Password must be at least 6 characters.";
+
+      button.textContent = "Verifying credentials...";
+      button.classList.add("loading");
+      button.disabled = true;
+
+      setTimeout(() => {
+        if (user === "professor" && pass === "faculty123") {
+          button.textContent = "✅ Welcome, Professor!";
+          feedback.textContent = "Redirecting to your dashboard...";
+          feedback.style.display = "block";
+          setTimeout(() => {
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "index.html";
+          }, 1800);
+        } else {
+          button.textContent = "Login";
+          button.classList.remove("loading");
+          button.disabled = false;
+          error.textContent = "Invalid username or password.";
+        }
+      }, 1300);
+    });
+  </script>
+</body>
+</html>

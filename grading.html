@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grading</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="faculty-header">
+    <div class="d-flex justify-content-between align-items-center p-3 px-4">
+      <div class="d-flex gap-2">
+        <a href="about.html" class="btn btn-light">About Us</a>
+        <a href="#" class="btn btn-light">Need Help?</a>
+        <a href="#" class="btn btn-light">Report Statuses</a>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <a href="index.html" class="logo-link">
+          <h1 class="faculty-logo mb-0">faculty <span class="fw-bold">HUB</span></h1>
+        </a>
+      </div>
+
+      <div class="d-flex gap-2">
+        <a href="messages.html" class="btn btn-warning fw-bold">Messages</a>
+        <a href="schedule.html" class="btn btn-success fw-bold">Schedule</a>
+        <a href="grading.html" class="btn btn-danger fw-bold">Grading</a>
+        <div class="dropdown">
+          <img src="profile.png" alt="Profile" class="profile-pic rounded-circle dropdown-toggle" width="40" height="40" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;" title="Profile Menu">
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mt-5 pt-5">
+    <section id="grading-page1">
+      <h2 class="fw-bold">Grading</h2>
+      <p class="text-muted">Select the course you want to grade:</p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Semester</th>
+              <th>Course Name</th>
+              <th>Course #</th>
+              <th>Seat Capacity</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="course-row" data-course="Market Research – MKT 3340.501">
+              <td>FA2025</td>
+              <td><a href="#" class="course-link">Market Research</a></td>
+              <td>MKT 3340</td>
+              <td>25</td>
+              <td>MW 2:00–3:15 PM</td>
+            </tr>
+            <tr class="course-row" data-course="Market Research – MKT 3340.502">
+              <td>FA2025</td>
+              <td><a href="#" class="course-link">Market Research</a></td>
+              <td>MKT 3340</td>
+              <td>25</td>
+              <td>F 2:00–3:15 PM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grading-page2" style="display:none;">
+      <h2 class="fw-bold">Grading</h2>
+      <p class="text-muted" id="selected-course-label">Market Research – MKT 3340.501</p>
+
+      <div class="table-responsive">
+        <table class="table table-bordered text-center align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Assignment</th>
+              <th>Type</th>
+              <th>Weight</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 1">Assignment 1</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>8/21/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Quiz 1">Quiz 1</a></td>
+              <td>Quiz</td>
+              <td>10%</td>
+              <td>9/05/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 2">Assignment 2</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>9/25/2025</td>
+            </tr>
+            <tr>
+              <td><a href="#" class="assignment-link" data-assignment="Assignment 3">Assignment 3</a></td>
+              <td>Homework</td>
+              <td>25%</td>
+              <td>10/03/2025</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage1" class="btn btn-secondary px-4">Go Back</button>
+      </div>
+    </section>
+
+    <section id="grading-page3" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block" id="page3-course-label">Market Research – MKT 3340.501</small>
+          <small class="text-muted">Grade your students' assignments!</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Submission Date</th>
+                <th style="width:80px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Sarah</td>
+                <td>Hasan</td>
+                <td>100%</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square">Edit</button></td>
+              </tr>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Safura</td>
+                <td>Shafi</td>
+                <!-- not submittted yet -->
+                <td class="grade-status" data-status="not-submitted">Not Submitted</td>
+                <td>—</td>
+                <td><button class="edit-square">Edit</button></td>
+              </tr>
+              <tr>
+                <td>Assignment 1</td>
+                <td>Munise</td>
+                <td>Oz</td>
+                <!-- submitted but not graded -->
+                <td class="grade-status" data-status="not-graded">Not Graded Yet</td>
+                <td>8/21/2025</td>
+                <td><button class="edit-square">Edit</button></td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage2" class="btn btn-secondary px-4">Go Back</button>
+      </div>
+    </section>
+
+    <section id="grading-page4" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block" id="page4-course-label">Market Research – MKT 3340.501</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Graded Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="edit-assignment">Assignment 1</td>
+                <td id="edit-firstname">Safura</td>
+                <td id="edit-lastname">Shafi</td>
+                <td><input type="text" id="edit-grade" class="form-control text-center" placeholder="e.g. 95%" style="width:100px;"></td>
+                <td id="edit-date"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="backToPage3" class="btn btn-secondary px-4">Go Back</button>
+        <button id="submitGrade" class="btn btn-primary px-4 ms-2">Submit Changes</button>
+      </div>
+    </section>
+
+    <section id="grading-page5" style="display:none;">
+      <div class="d-flex justify-content-between align-items-end mb-3">
+        <div>
+          <h2 class="grading-title mb-1">Grading</h2>
+          <small class="text-muted d-block" id="page5-course-label">Market Research – MKT 3340.501</small>
+        </div>
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+      </div>
+
+      <div class="course-card mx-auto">
+        <div class="card-inner">
+          <table class="grading-table">
+            <thead>
+              <tr>
+                <th>Assignment</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Grade</th>
+                <th>Submission Date</th>
+              </tr>
+            </thead>
+            <tbody id="updated-grades-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button id="goBackHome" class="btn btn-primary px-4">Go Back</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "Login.html";
+  }
+
+  function showSection(id){
+    const ids = ["grading-page1","grading-page2","grading-page3","grading-page4","grading-page5"];
+    ids.forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.style.display = (s === id) ? "block" : "none";
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("backToPage1")?.addEventListener("click", () => showSection("grading-page1"));
+  document.getElementById("backToPage2")?.addEventListener("click", () => showSection("grading-page2"));
+  document.getElementById("backToPage3")?.addEventListener("click", () => showSection("grading-page3"));
+  document.getElementById("goBackHome")?.addEventListener("click", () => showSection("grading-page3"));
+
+  let currentCourse = "";
+  let currentAssignment = "Assignment 1";
+  let currentStudent = {};
+
+  document.querySelectorAll(".course-row").forEach(row => {
+    row.addEventListener("click", e => {
+      e.preventDefault();
+      currentCourse = row.dataset.course;
+      document.getElementById("selected-course-label").textContent = currentCourse;
+      document.getElementById("page3-course-label").textContent = currentCourse;
+      document.getElementById("page4-course-label").textContent = currentCourse;
+      document.getElementById("page5-course-label").textContent = currentCourse;
+      showSection("grading-page2");
+    });
+  });
+
+  document.querySelectorAll(".assignment-link").forEach(link =>{
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      currentAssignment= link.dataset.assignment;
+      updateAssignmentLabels();
+      showSection("grading-page3");
+    });
+  });
+
+  
+function updateAssignmentLabels(){
+  document.querySelectorAll(".grading-title").forEach(title => {
+    title.textContent = "Grading – " +currentAssignment;
+  });
+
+  const editAssignmentCell= document.getElementById("edit-assignment");
+  if (editAssignmentCell) {
+    editAssignmentCell.textContent= currentAssignment;}
+}
+
+
+  //make each edit button work on exactly that row
+document.querySelectorAll(".edit-square").forEach(btn =>{
+  btn.addEventListener("click", () =>{
+      const row= btn.closest("tr");
+    const rawGradeText =row.children[3].textContent.trim();
+    const isStatus=
+      rawGradeText === "Not Submitted" ||rawGradeText=== "Not Graded Yet";
+       currentStudent={
+      assignment: row.children[0].textContent,    
+      firstName: row.children[1].textContent,
+      lastName: row.children[2].textContent,
+      gradeCell: row.children[3],                 
+      submissionDateCell: row.children[4],        
+      submissionDate: row.children[4].textContent
+    };
+
+    document.getElementById("edit-assignment").textContent= currentStudent.assignment;
+    document.getElementById("edit-firstname").textContent= currentStudent.firstName;
+    document.getElementById("edit-lastname").textContent =currentStudent.lastName;
+    const numericPart =rawGradeText.replace("%", "").trim();
+    document.getElementById("edit-grade").value= isStatus ? "" : numericPart;
+    const today=new Date().toLocaleDateString();
+    document.getElementById("edit-date").textContent = today;
+    showSection("grading-page4");
+  });
+});
+
+
+  // the last updte, confirmation+ auto-% + autoset graded date + update only correct row
+document.getElementById("submitGrade")?.addEventListener("click", ()=>{
+  const inputEl =document.getElementById("edit-grade");
+  const rawInput= inputEl.value.trim();
+  if (!rawInput){
+    alert("Please enter a grade (for example 95 or 95%).");
+    return;
+  }
+  let formattedGrade =rawInput;
+  const numericOnly= /^\d+(\.\d+)?$/; // 95 or 95.5
+  if (numericOnly.test(rawInput)) {
+    formattedGrade= rawInput + "%";
+  }
+
+  // 
+  const confirmMessage=
+    `Are you sure you want to change ${currentStudent.firstName} ${currentStudent.lastName}'s `+
+    `grade for ${currentStudent.assignment} to ${formattedGrade}?`;
+
+  if (!confirm(confirmMessage)){
+    // user cancelled do nothing
+    return;}
+
+  currentStudent.gradeCell.textContent = formattedGrade;
+
+  const today= new Date().toLocaleDateString();
+  if(currentStudent.submissionDateCell){
+    currentStudent.submissionDateCell.textContent = today;
+  }
+  currentStudent.submissionDate= today;
+  const updatedBody= document.getElementById("updated-grades-body");
+  updatedBody.innerHTML= `
+    <tr>
+      <td>${currentStudent.assignment}</td>
+      <td>${currentStudent.firstName}</td>
+      <td>${currentStudent.lastName}</td>
+      <td>${formattedGrade}</td>
+      <td>${currentStudent.submissionDate}</td>
+    </tr>
+  `;
+  showSection("grading-page5");
+});
+
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
