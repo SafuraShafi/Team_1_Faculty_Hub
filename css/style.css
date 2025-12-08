@@ -89,9 +89,8 @@
   background-position: center;
   background-repeat: no-repeat;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  overflow: hidden;
 }
 
 .top-bg-overlay {
@@ -162,6 +161,16 @@ h5, .card-title {
   right: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.faculty-header .d-flex {
+  position: relative;
+}
+
+.faculty-header .logo-link {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .faculty-logo {
