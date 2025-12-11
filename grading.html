@@ -393,7 +393,12 @@ document.getElementById("submitGrade")?.addEventListener("click", ()=>{
   if (numericOnly.test(rawInput)) {
     formattedGrade= rawInput + "%";
   }
-
+  const numericPartForCheck=formattedGrade.replace("%", "").trim();
+ const gradeNum=Number(numericPartForCheck);
+if(isNaN(gradeNum) || gradeNum <0 || gradeNum> 100){
+  alert("Invalid input.Please enter a number between 0 and 100. ");
+  inputEl.focus();
+return;}
   // 
   const confirmMessage=
     `Are you sure you want to change ${currentStudent.firstName} ${currentStudent.lastName}'s `+
